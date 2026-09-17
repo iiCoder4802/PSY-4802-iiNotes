@@ -569,3 +569,6 @@ We can get the standard deviation using `sd()`.
 
 git add <Woodinstruct1.Rmd.>
 
+change 1.1
+
+
