@@ -1,11 +1,4 @@
 ---
-title: "Woodinstruct1"
-output: html_document
-date: "2026-09-17"
-editor_options: 
-  chunk_output_type: inline
----
----
 title: "Foundations in R pt 1"
 author: "Amanda Mae Woodward"
 date: "2026-09-17"
@@ -59,6 +52,7 @@ text goes outside
 # Mac: command + option + i 
 # windows pc: control + alt+i
 # manual
+"put words in quotes"
 ```
 
 ## Learning Outcome 1: Mathematical Expressions and Logical Statements
@@ -71,7 +65,7 @@ calculators you may have used previously), but can do much more.
 #### Addition
 
 ```{r}
-2+3+2
+2+2+3
 ```
 
 #### Subtraction
@@ -91,14 +85,14 @@ calculators you may have used previously), but can do much more.
 
 ```{r}
 876/234
-#remainder
+#remainder 
 9%%2
 ```
 
 #### Square Root
 
 ```{r}
-sqrt((((((((100))))))))
+sqrt((((((((((((((100)))))))))))))) #pretty colors
 sqrt(100)
 ```
 
@@ -106,6 +100,7 @@ sqrt(100)
 
 ```{r}
 7^12
+5^2
 ```
 
 **Important:** In terms of calculations, R follows PEMDAS (algebra
@@ -114,7 +109,10 @@ throwback). Parentheses are going to be **Really** important.
 #### More complicated Math:
 
 ```{r}
-2+4*5+5
+3+212*(3/2)^3*32/31
+3+212*(3/2^3*32/31)
+
+21+15*(2837901)/(62-12*67)
 ```
 
 ### Logical Statements
@@ -143,23 +141,23 @@ Running this code tells us the statement is false. (**Note**: this is
 because the phrase on the left is not the same as the one on the
 right. As far as I know, R hasn't watched *the Office*).
 
-
 However, R can compute mathematical expressions. This means we can look
 at something like this:
 
 ```{r}
 3 ==4
 
-14-9 ==5
-14-9 ==5
+14-9 == 3*2
+```
 
 You can also evaluate if statements are **NOT** True. We can do this by
 using the symbol `!=` For instance, I could evaluate Michael Scott as a
 manager by writing:
 
 ```{r}
-4 != 7
-4 !== 7
+"Michael Scott" != "good manager"
+3 != 9
+```
 
 Note: In other words, == is similar to "is" and != is similar to "is
 not"
@@ -171,7 +169,13 @@ less than, greater than or equal to, and less than or equal to.
 Examples:
 
 ```{r}
-74839876 >= 5
+ 4 > 3
+5< 6
+
+13*2 <= 38
+
+3 >=2
+
 ```
 
 We can also make logical statements more complex by creating **and** and
@@ -181,14 +185,15 @@ be true)
 And statements use `&` OR `&&` (if you have more things to evaluate)
 
 ```{r}
-4 =4 & 4 >3
-3>2 && 4<3
+3>2 & 4 <3
+3>2 & 4 <5 
+3>2 && 4<5 && 5>6
 ```
 
 Or statements use `|` OR `||` (if you have more things to evaluate)
 
 ```{r}
-
+9 >5| 3*2<1 
 ```
 
 ##### Learning Outcome 1 Practice:
@@ -201,15 +206,13 @@ sqrt(89)
 2.  Determine if 3 raised to the 5 power is greater than the square root
     of ten thousand
 ```{r}
-(3^5) > (sqrt(10000))
+3^5>sqrt(10000)
 ```
-    
+
 3.  Determine if 5 times 7 is less than or equal to 30 or if 4*8 is
     equal to 32
 ```{r}
-
-((5*7 <= 30) || (4*8 == 32))
-  
+5*7<=30 | 4*8==32
 ```
 
 ### Learning Outcome 2: Describe how to use common R functions
@@ -228,8 +231,8 @@ writing small#:larger#, and would give you all of the numbers in
 between.
 
 ```{r}
-1:100
-20:14
+1:10000
+10000:1
 ```
 
 `rep()` allows you to repeat something a set number of times. Looking at
@@ -237,54 +240,51 @@ the help file, we can see the arguments contained in the function. To
 use it, we write `rep(thingToBeRepeated, #ofTimes)`.
 
 ```{r}
-rep("burger", 13)
-rep("HA",17)
+rep("coffee", 13)
+rep(12, 2)
 ```
-
 **Note:** For functions, you can either write arguments in the order
 listed in the help file (not labelled), or make sure you include the
 argument label.
-
 ```{r}
-"nah"
+rep(times= 3, x= "coffee")
 ```
 
 `seq()` gives you a sequence of numbers. typically, we use it by writing
 `seq(lowest#, highest#, by=#)`.
 
 ```{r}
-seq(0,25,2)
+seq(1,10, 1)
+seq(5,1000, 5)
+seq(from=10000, to =5, by= -5)
 ```
 
 #### Learning Outcome 2 Practice:
 
 1.  Print every 5th number between 1 and 100.
 ```{r}
-seq(1,100, 5)
+seq(1,100,5)
 ```
 
 2.  Use code to write I love statistics 4 times.
 ```{r}
-(rep("I love statistics",4))
+rep("i love statistics", 4)
 ```
 
 3.  Repeat the numbers 1-10 twice
 ```{r}
-rep(1:10, 2)
+rep(seq(1,10,1),2)
+rep(1:10,2)
 ```
 
 4.  Print every 3rd number from 1-20 3 times.
 ```{r} 
-rep(seq(1,20,3),5)
-
+rep(seq(1,20,3),3)
 ```
 
-###Learning Outcome 3: Explain the differences between variables,
-vectors, and dataframes
+###Learning Outcome 3: Explain the differences between variables, vectors, and dataframes
 
-What's the problem with using R as a big, fancy calculator? We haven't
-stored anything so we could use it later. Different things that we will
-need later have different names, but we store them in the same way
+What's the problem with using R as a big, fancy calculator? We haven't stored anything so we could use it later. Different things that we will need later have different names, but we store them in the same way
 
 nameItsBeingSavedAs <- thingBeingSaved "works all the time"
 variableName = thing  "works some of the time"
@@ -292,118 +292,137 @@ variableName = thing  "works some of the time"
 
 nameThing = thingSaved #DO NOT DO THIS
 
-**Note:** the "assignment operator" (less than sign followed by the
-hyphen; I was taught to call it a carrot) should be used over an equal
-sign. There are a lot of reasons for this, but the main one is that R is
-finicky and different updates and packages read "=" differently, so <-
+**Note:** the "assignment operator" (less than sign followed by the hyphen; I was taught to call it a carrot) should be used over an equal sign. There are a lot of reasons for this, but the main one is that R is finicky and different updates and packages read "=" differently, so <-
 is safest.
 
-Naming conventions: I was taught to use all lower case for the first
-word, and capital letters for each word after. That's what I'll use in
-class. However, you can use whatever convention you want. But a couple
-of things to keep in mind:
+Naming conventions: I was taught to use all lower case for the first word, and capital letters for each word after. That's what I'll use in class. However, you can use whatever convention you want. But a couple of things to keep in mind:
+
+iLikeCookies
+I_Like_Cookies
+ILIKECOOKIES
+ilikecookies
 
 -   R objects (things) can't have spaces in the name
 Amanda Woodward
 'Amanda Woodward'
--   R is case sensitive (statistics, Statistics, StAtIsTiCs are all read
-    as three different things)
--   Don't give your stored stuff names that are the same as R functions
-    (e.g. no naming dataframes "data" or saving something as "mean")
--   Make sure your names mean something (slgahwgh may help you get our
-    your frustration out- but you won't remember what it means later and
-    neither will your collaborators)
+-   R is case sensitive (statistics, Statistics, StAtIsTiCs are all read as three different things)
+-   Don't give your stored stuff names that are the same as R functions (e.g. no naming dataframes "data" or saving something as "mean")
+-   Make sure your names mean something (slgahwgh may help you get our your frustration out- but you won't remember what it means later and neither will your collaborators)
 
 **Variables**
 
-Variables store one thing in R (it can be a number, a word, or whatever
-you want)
+Variables store one thing in R (it can be a number, a word, or whatever you want)
 
 ```{r}
-cookie<- "choclate chip"
-eatCookies<-8
+cookie<- "chocolate chip"
+eatCookies<- 8
 ```
 
-*Aside: `c()` means combine. you can put stuff in parentheses and use a
-comma to separate it and have it print together
+*Aside: `c()` means combine. you can put stuff in parentheses and use a comma to separate it and have it print together
 
 **Vectors**
 
 Vectors are objects that store one dimensional information
 
-To save more than one thing in an R variable, you would use the combine
-function- `c()`.
+To save more than one thing in an R variable, you would use the combine function- `c()`.
 
 ```{r}
 "numeric"
-earlyToClass<- c(1,60, -5, 5 , 15, 10)
+earlyToClass<- c(1, 60,-5, 5,15,10,1)
+earlyToClass
 "character"
-
+breakfast<- c("waffles", "yogurt", "nothing", "cereal", "apple cider donut")
 ```
 
 If you want to call one of the things you saved in a vector, you can
 write `vectorName[position of thing]`
 
 ```{r}
-earlyToClass[4]
+breakfast[3]
 ```
 
-**Dataframes** Data frames are made from multiple vectors. There are
-preloaded datasets in R we can use to practice, such as mtcars:
+**Dataframes** Data frames are made from multiple vectors. There are preloaded datasets in R we can use to practice, such as mtcars:
 
 ```{r}
 data(mtcars)
-?mtcars
+?mtcars # only do this in the console
+
 ```
 
 ### Practice:
 
 1)Make a vector with 6 animals
-
-2)Make a vector of the number of cookies you think each animal could eat
-
-We can also combine vectors into a dataframe using R functions
-(`cbind.data.frame()` or `rbind.data.frame()`). We'll use the vectors we
-made above as an example.
-
 ```{r}
-mySixAnimals<- c('monkey','mouse', 'fly', 'lion', 'gorilla', 'hippo')
+animals<- c("zebra", "stingray", "goat", "fox", "tiger", "rat", "turkey", "snail")
+animals
 ```
 
-Just like you can pick one thing in a vector, you can select one column
-or one row in a dataframe. You can use brackets like we did with
-vectors, but you need to specify whether it's a row or a column. If it's
+2)Make a vector of the number of cookies you think each animal could eat
+```{r}
+cookies<- c(6, 1, 3,5,100,1,0,0)
+cookies
+```
+We can also combine vectors into a dataframe using R functions
+(`cbind.data.frame()` or `rbind.data.frame()`). We'll use the vectors we made above as an example.
+
+```{r}
+cookieDat<- cbind.data.frame(animals, cookies)
+cookieDat
+cookieDat$animals
+```
+
+```{r}
+cookieRow<- rbind.data.frame(animals, cookies)
+cookieRow
+```
+
+Just like you can pick one thing in a vector, you can select one column or one row in a dataframe. You can use brackets like we did with vectors, but you need to specify whether it's a row or a column. If it's
 a column, you can write `dataframe[,column#]` and you can use
 `dataframe[row#,]`.
 
 ```{r}
-
-```
-```{r}
-
+cookieDat$animals #hard coding =same column every time
+cookieDat[,1] #soft coding= column grabbed can be different
 ```
 
-You can also get columns by using a `$`.
-
 ```{r}
+cookieDat[1,]
+cookieDat[1,1]
+cookieDat$animals[1]
 ```
 
 #### Learning Outcome 3 Practice:
 
 1.  Create a variable that contains your favorite ice cream flavor
+```{r}
+icecream<- "cookie dough"
+icecream
+```
 
-
-2.  Create two vectors: 1 vector should contain the names of four TV
-    shows and the 2nd vector should contain your ratings for those shows
-
+2.  Create two vectors: 1 vector should contain the names of four TV shows and the 2nd vector should contain your ratings for those shows
+```{r}
+tvShows<- c("how i met your mother", "gilmore girls", "modern family","scrubs")
+ratings<- c(10,6,8,4)
+```
 3.  Make these vectors into a data frame.
+```{r}
+TvShowDat<- cbind.data.frame(tvShows, ratings)
+```
 
 4.  Print the information in the 2nd row.
-
+```{r}
+TvShowDat[2,]
+```
 5.  Print the information in the 2nd column.
+```{r}
+TvShowDat[,2]
+TvShowDat$ratings
+```
 
 Bonus: Print the information in the 3rd row, 1st column.
-
+```{r}
+TvShowDat[3,1]
+```
 
 ###Learning Outcome 4: Explain how to obtain a subset of your data
 
@@ -419,7 +438,7 @@ For instance, we could use indexing to get only cars in the mtcars
 dataset with 4 gears.
 
 ```{r}
-
+mtcars[mtcars$gear==4,]
 ```
 
 In this case, you'll notice that I put a comma after the logical
@@ -434,19 +453,38 @@ If we wanted to get the same subset of data as above, we could do the
 following:`subset(dataframe, condition)`
 
 ```{r}
+mtcars[mtcars$cyl==6,]
+subset(mtcars, mtcars$cyl==6)
+
+#install.packages("tidyverse")
+library(tidyverse)
+
+mtcars %>% filter(cyl==6)
 
 ```
 
 ## Practice:
 1. create a subset of data from mtcars that contains all cars with less than 25 mpg. 
+```{r}
+subset(mtcars,mtcars$mpg <25)
+mtcars %>% filter(mpg<25)
+mtcars[mtcars$mpg <25,]
+# |> this is also a pipe! 
+```
 
 2. create a subset of data with all cars that have an automatic transmission
+```{r}
+subset(mtcars, mtcars$am== 0)
+```
 
 3. create a subset of data with all cars that have at least  100 horsepower and 4 gears. 
+```{r}
+mtcars %>% filter(hp>=100 & gear >=4)
+subset(mtcars, mtcars$hp >=100 & gear ==4) #if you read as exactly 4 
+```
 
 
-**A Note on Pipes (more advanced)** If not, we're going to talk about
-another way to get a subset of data from our dataframe.
+**A Note on Pipes** If not, we're going to talk about another way to get a subset of data from our dataframe.
 
 Above, we used indexing and subsetting to make new dataframes that
 contain only the information we need. You can also use something called
@@ -462,39 +500,51 @@ a package, you need to first use the following code in the console:
 
 After that, we need to use the library command to load the package
 
-```{r}
-
-```
 
 We can use filter and select to subset data with pipes.
 
 We can use `filter()` to pick a subset of rows:
 
 ```{r}
-
+fourthGear<- mtcars |> filter(gear==4)
 ```
 
 We can use `select()` to pick a subset of columns:
 
 ```{r}
-
+fourthGear |> select(mpg, hp, am)
 ```
 
+```{r}
+fourthGear2<- mtcars |> filter(gear==4) |> select(mpg)
+fourthGear2
+```
 
 #### Learning Outcome 4 Practice:
 
 1.  Load the ChickWeight dataset.
+```{r}
+data(ChickWeight)
+```
 
 2.  Create a subset of data that contains information for Chick 8
+```{r}
+chickEight<- subset(ChickWeight, ChickWeight$Chick ==8)
+```
 
 3.  Create a subset of data for Diet 2 only.
+```{r}
+dietTwo<- ChickWeight %>% filter(Diet ==2)
+```
 
 4.  Create a subset of data for all chicks weighing less than 100 gm.
+```{r}
+subset(ChickWeight, ChickWeight$weight <100)
+```
 
 ### Learning Outcome 5: Describe your data effectively
 
-We need to make sure that we can understand what our data look like
-before doing anything more complicated.
+We need to make sure that we can understand what our data look like before doing anything more complicated.
 
 **Looking at the top/bottom of your dataset** First we can view what our
 data look like using `head()` and `tail()` to see the beginning and end
@@ -503,7 +553,10 @@ of our data. they both use a similar format
 install ggplot if you haven't already!)
 
 ```{r}
-
+head(ChickWeight)
+head(ChickWeight, 1)
+tail(ChickWeight)
+tail(ChickWeight,1)
 ```
 
 hypothetically, we have a dataset with 1000 rows. can we just get rows 50-100? 
@@ -517,7 +570,8 @@ appropriately/is what we expect.
 `summary()`.
 
 ```{r}
-
+summary(ChickWeight)
+summary(ChickWeight$Chick)
 ```
 
 What do you notice about the summaries?
@@ -536,48 +590,72 @@ If we need the # of observations, we can use `length()` or `nrow()` to
 get this information.
 
 ```{r}
-
+length(ChickWeight$Diet) #only use on vectors 
+nrow(ChickWeight)
+length(ChickWeight)
 ```
 
 We can also take the average by using the function `mean()`.
 
 ```{r}
-
+mean(ChickWeight$weight)
 ```
 
 We can get the standard deviation using `sd()`.
-
 ```{r}
-
+sd(ChickWeight$weight)
 ```
 
 `var()`gives us the variance
 
 ```{r}
-
+var(ChickWeight$weight)
 ```
 
 `range()` gives us the range
-
 ```{r}
-
+rangeChick<- range(ChickWeight$weight)
+rangeChick[2]- rangeChick[1]
 ```
 
 ###Learning Outcome 5 Practice
 
 1.  Summarize the ChickWeight dataset
+```{r}
+summary(ChickWeight)
+```
 
 2.  Find the mean of the weight column
+```{r}
+mean(ChickWeight$weight)
+```
 
 3.  Summarize the data for just the 1st chick
+```{r}
+summary(ChickWeight[ChickWeight$Chick==1,])
+
+chickOne<- subset(ChickWeight, Chick==1)
+summary(chickOne)
+
+chickOneSum<- summary(ChickWeight |> filter(Chick==1))
+chickOneSum
+```
 
 4.  What is the variance of the 1st chick's weight?
+```{r}
+var(chickOne$weight)
+```
 
 5.  What is the range in weight for each chick posted in the dataset?
+```{r}
+rangeChickOne<- range(chickOne$weight)
+rangeChickOne[2]-rangeChickOne[1]
 
+chickTwo<- subset(ChickWeight, Chick==2)
+range(chickTwo$weight)
+```
 
-git add <Woodinstruct1.Rmd.>
+```{r}
 
-change 1.1
+```
 
-change again
