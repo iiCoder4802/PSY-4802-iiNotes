@@ -3,23 +3,103 @@ title: "iiFoundations in R Assignment pt 2"
 author: "iBrahim iSmail"
 date: "2026-10-9"
 output: html_document
+editor_options: 
+  chunk_output_type: inline
 ---
 
 For your second R Assignment, complete the questions below. Remember, weekly assignments are graded based on attempts and accuracy, so it's ok if you don't get everything immediately. Please submit your answers by 1) updating this file in your GitHub repository and 2) uploading a .html file of the assignment to this repository. Please submit a link to the repository on Canvas. 
 
 # Set up
 1. Load the tidyverse library.
+```{r}
+library(tidyverse)
+```
+Brought the tidy verse library from my downloads to the present data set
+
 2. Load the billboard data. 
+```{r}
+data("billboard", package="tidyr")
+```
+Loaded a certain chunk of data from that library into the present set and loaded it into the "promise you, it's here, but I'm too lazy to open it" state
+
 3. Describe the dataset. 
+I opened it from the promise state and see that it's a bunch of songs listed with who the artist is and how it ranked each week
+
 4. Print the column names from this dataset. 
+```{r}
+colnames(billboard)
+```
+We just wanted to get the column names using colnames and then in parentheses we specified the data set we wanted the column names for
+
 5. Print the first 5 entries in the dataset. 
+```{r}
+head(billboard, n=5)
+```
+What it did was get all the information from the first five (enteries) rows. It also gave an alternative way of coding this, which is using 'billboard[1:5, ]' which seems more intuitive and easy to remember because it's just saying billboard on the X axis from 1 to 5, so you just immediately think of the first five rows.
 
 # Practice
 1. Create a subset of data that has Jay-Z as the only artist. How many songs are in it?
+```{r}
+jayZDat <- billboard[billboard$artist=="Jay-Z", ]
+nrow(jayZDat)
+```
+The first line made a separate subset of data for the rows that had Jay-Z listed in the artist column. The second line got the number of rows in that new dataset we just made called Jayzdat.
+
 2. In the original dataset, use filter to find information about the song "All the small things." What was the highest position (i.e. lowest number) this song reached on the billboard 100? 
+```{r}
+smallThingsDat <- filter(billboard, track=="All The Small Things")
+smallThingsDat
+min(as.numeric(unlist(smallThingsDat[, 4:79])), na.rm=TRUE)
+```
+The first line told our to make a subset of data where the track was called all the small things. The second line opened that subset of data. The third line looked at the lowest value because that's what a higher position on the billboard would be represented by.
+
 3. Create a subset of data for songs Tim McGraw sang. Summarize the data for wk 1.
+```{r}
+timMcGrawDatttttttttt <- billboard[billboard$artist=="McGraw, Tim", ]
+summary(timMcGrawDatttttttttt$wk1)
+```
+The first line made a subset of data where the artist was Tim McGraw. and the second line ordered R to summarize that new dataset that we just named. I made the name a little goofy to see for myself that whatever you decide to name the data set does not matter. His most listened to song had a ranking of 73, and his least one ranked 85th.
+
 4. Create a function that can be used to determine if Britney Spears sang the song. 
+```{r}
+isBritney <- function(artist) {
+  artist=="Spears, Britney"
+}
+isBritney(billboard$artist)
+```
+It looked at every single row and calculated whether its value was 'Spears, Britney' in the artist column. Then, in the second line of code, we ran the function we named "isBritney" to get our result above.
+
 5. Test your function on the billboard data. Save the results to a new column called "wasItBritney"
+```{r}
+billboard$wasItBritney <- isBritney(billboard$artist)
+```
+We ran the function and added the results as a new column in the original data set. Now we have a separate column in the original data set that just tells us whether Britney sang the song or not in T/F format.
+
 6. Use a for loop to determine if a song placed 50 or below or placed above 50 during the first week. 
+```{r}
+billboard$weekOneGroup <- ""
+
+for(i in 1:nrow(billboard)) {
+  if(billboard$wk1[i]<50) {
+    billboard$weekOneGroup[i] <- "Above 50"
+  } else {
+    billboard$weekOneGroup[i] <- "50 or below"
+  }
+}
+```
+'The first line made a new column called week one group. The rest of the code read each value, and if it was less than 50, then it categorized it as being above 50*, and if it was 50 or more, then it categorized it as being 50 or below.
+
+*I interpreted 50 or below as 50 to 100 and 'above 50' is 1 to 50 because above means a higher ranking (which coincides with a lower number, so I had to reverse it). ChatGPT initially coded this the opposite way, and I corrected it. So if this is not what you meant with the instructions, then I'm at fault, not the AI.'
+
 7. Use an if else statement to determine the same information as you obtained with the for loop. 
+```{r}
+billboard$week1Group <- ""
+
+billboard$week1Group <- ifelse(billboard$wk1<50,
+                               "Above 50",
+                               "50 or below")
+```
+The first line made a new column. where I just changed the title slightly to indicate to myself that it's gonna give the same data just in a different way, and then the second line basically said if the value is less than 50, then write above 50, otherwise put 50 or below. The AI got confused here and replaced the data initially from the last question, so I changed the wording in the second line, and then added the first line to the changed wording to make a new column.
+
 8. Compare your results in 6 and 7. 
+They're the same!
