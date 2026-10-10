@@ -1,0 +1,76 @@
+---
+title: "ii4802Quiz1"
+author: "iBrahim Ismail"
+date: "2026-10-10"
+output: html_document
+---
+
+This quiz will cover everything we've covered in foundations of R assignments.
+
+1. Open the tidyverse library.
+```{r}
+library(tidyverse)
+```
+didnt use AI
+
+2. Open the starwars dataset.
+```{r}
+data("starwars", package="dplyr")
+starwars
+```
+The first line of code opened the data set. From the tidy verse library. The second line of code called R to display the data set in front of me.
+
+3. Create a subset of data that contains only the humans from the starwars franchise.
+```{r}
+humanDat <- subset(starwars, subset=species=="Human")
+humanDat
+```
+The first line of code made a new subset of data where the species column had the value "Human." The second line of code displayed that new subset of data.
+
+4. In this subset of data, who is the tallest character? 
+```{r}
+humanDat$name[which.max(humanDat$height)]
+```
+The outside of the bracket asked for the name of the character with the condition inside of the brackets. The part in the parentheses indicated the characteristic of focus while the "which.max" indicated that we wanted the highest value under this characteristic. The tallest character in the data set is Darth Vader.
+
+5. In this subset of data, print the information about the character in the third row. 
+```{r}
+humanDat[3, ]
+```
+I wanted for the data in the third point of the X axis of the table, so it is the first of the two blanks in the brackets (x,y), set to 3. That is the same as getting the information on the third row.
+
+6. In the full starwars dataset, calculate the average mass for the masculine characters. 
+```{r}
+mean(x=starwars$mass[starwars$gender=="masculine"], na.rm=TRUE)
+```
+I calculated the mean of characters in a certain data set with a certain characteristic, in this case being masculine, which was specified inside the brackets. I wanted characters that were true for this characteristic. the mean weight value is 106.5149
+
+7. Create a dataset that contains only the characters and the films that they appeared in from the full dataset. 
+```{r}
+characterFilms <- starwars[, c("name", "films")]
+characterFilms
+```
+The first line named the dataset, specified where the data was coming from, and specified that the columns that I wanted in the new dataset were the ones that had "name" and "films."
+
+8. Create a new column in the starwars dataset that contains a "ranking" of all characters (Note: you don't have to actually rank them. Just fill the column in with the numbers 1-87)
+```{r}
+starwars$ranking <- 1:87
+starwars
+```
+I specified the data set I wanted, and then ordered it to make a new column with the numbers one through 87. To be clear though, R2-D2 definitely shouldn't rank higher than Vader and Leia. Ima just roll with it for the sake of my quiz grade for now (know that this ridiculous data set will be permanently wiped from my computer the second I get my quiz grade back)...
+
+9. Create a subset of data for the characters from Naboo. How many characters are from Naboo? 
+```{r}
+nabooDat <- subset(starwars, subset=homeworld=="Naboo")
+nrow(nabooDat)
+```
+Named a data set and said that this subset from the Star Wars data set should have the Homeworld value be "Naboo." Then I got the number of rows (characters) in this subset. 11 characters.
+
+10. How many droids are in the full dataset? 
+```{r}
+sum(starwars$species=="Droid", na.rm=TRUE)
+```
+I wanted the total (sum) number of characters from the Star Wars data set that had their species value as "Droid." I of course wanted the number of characters that were true for this characteristic, so I said true. There are 6. 
+
+If I said false, I would've gotten the number of characters that were NOT droids.
+
