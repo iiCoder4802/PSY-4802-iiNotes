@@ -1,0 +1,118 @@
+---
+title: "iidataWr&ClnAssignmt1"
+author: "iBrahim Ismail"
+date: "2026-10-25"
+output: html_document
+---
+
+#Part 1
+1.Open the sleep dataset in R 
+```{r}
+sleep
+```
+```{r}
+data(sleep)
+```
+
+2. Is it long or wide format? How do you know? 
+long format. each particpant is listed more than once. In this case when they are in diff groups.
+Describing the code from left to right: make a new
+3. Transform this data so that it is in the other format. 
+```{r}
+sleep <- tidyr::pivot_wider(
+  sleep,
+  id_cols = ID,
+  names_from = "group",
+  names_prefix = "group",
+  values_from = "extra"
+)
+```
+This converted the existing sleep data set into wide format. Explanation of the code from left to right: for the sleep data set, converted into wider format, and know that the column with the participant IDs is called ID and get the new to column names from group column and make sure to put the prefix group for the two new column names and get the values for those columns from the extra column.
+
+4. Transform your data back to its original format. 
+```{r}
+sleep <- tidyr::pivot_longer(
+  sleep,
+  cols = c("group1", "group2"),
+  names_to = "group",
+  names_prefix = "group",
+  values_to = "extra"
+)
+```
+This hurt. Wide format is kinda nice. Explanation of the code from left to right: for the sleep data set, switch it into the long format in the following way. Make the columns group one and group two into a column called group and list the group number for each there. and take the values that used to be under the group column and put them in a separate column called extra
+
+5. Open the Starwars dataset
+```{r}
+library(tidyverse)
+```
+```{r}
+starwars
+```
+
+6. Create homeworld as a factor. How many levels does it have? 
+```{r}
+starwars$homeworld <- factor(starwars$homeworld)
+nlevels(starwars$homeworld)
+```
+L2RE (left to right explanation of code): Use the Homeworld column in the Star Wars data set to make a Star Wars Homeworld factor, and now give me the number of levels in the Star Wars Homeworld factor. theres 48.
+
+7. Reorder homeworld so that Naboo is the reference group. 
+```{r}
+starwars$homeworld <- relevel(starwars$homeworld, ref = "Naboo")
+```
+L2RE: For the Star Wars Homeworld factor re-level it so that the reference a.k.a the first level is Naboo
+
+8. Use mutate to create a column transforming kg to pounds. (hint: you may need to look up the conversion)
+```{r}
+starwars <- starwars |>
+  mutate(pounds = mass*2.2)
+```
+L2RE: for the Star Wars data set, make a new column called pounds and just list all the values in the mass column except 2.2x larger
+
+9. Print a summary of your column from #8
+```{r}
+summary(starwars$pounds)
+```
+I probably could've done this myself, but I was brain farting and forgot to put "starwars$" Summary provides a summary of the values in the pounds column, including median average and maximum. In order to use put the summery '(data(moneysign)column)'
+
+#Part 2
+10. open the billboard dataset.
+```{r}
+billboard
+```
+
+11. are the data in this dataframe in long or wide format? explain how you know. 
+It is in wide format because each track has its group separated into each week but all the weeks have their own columns. A long version of this data set would have the track listed over and over for each ranking of each separate week, and looking at it would make me want to cry
+
+12. change the data from its original format to the other version. 
+```{r}
+billboard <- billboard |>
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    values_to = "ranking"
+  )
+```
+L2RE: For the billboard data set, switch it to long format in the following way. Get all the columns that start with WK and put them under a column called week and then get the data that used to be under the WK columns and put them in a new column called ranking.
+
+13. change it from your altered version in #3 back to its original state. 
+```{r}
+billboard <- billboard |>
+  pivot_wider(
+    names_from = "week",
+    values_from = "ranking"
+  )
+```
+L2RE: put the billboard data convert it to wide format and have the rows under the week column become columns and put the values from the ranking column under those new columns.
+
+14. Separate the date entered column into three columns: one for year, one for month, and one for day. 
+```{r}
+billboard <- billboard |>
+  separate(
+    col = date.entered,
+    into = c("year", "month", "day"),
+    sep = "-",
+    convert = TRUE
+  )
+```
+L2RE: for the billboard data set separate the column date.entered into three columns: year, month, and day. The current values are separated by "-" and btw these are numbers
