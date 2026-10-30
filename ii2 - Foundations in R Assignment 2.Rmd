@@ -9,17 +9,87 @@ For your second R Assignment, complete the questions below. Remember, weekly ass
 
 # Set up
 1. Load the tidyverse library. 
+```{r}
+library(tidyverse)
+```
+no AI used
+
 2. Load the billboard data. 
-3. Describe the dataset. 
+```{r}
+data(billboard)
+```
+no AI used
+
+3. Describe the dataset.
+It's a list of tracks made by different artists and their ranking each week
+
 4. Print the column names from this dataset. 
+```{r}
+colnames(billboard)
+```
+colnames gets column names and what goes inside the parentheses is what column names to get, like from what data
+
 5. Print the first 5 entries in the dataset. 
+```{r}
+head(billboard, 5)
+```
+Head displays the first few items of anything, in parentheses I described where to pull the data from and how many.
 
 # Practice
 1. Create a subset of data that has Jay-Z as the only artist. How many songs are in it?
+```{r}
+jayZDat <- billboard[grepl("Jay-Z", billboard$artist, ignore.case = TRUE), ]
+jayZDat
+```
+Describing the code left to right: 'make a data set called jayzdat from billboard, including Rose/items that have the value 'Jay-Z' as the artist. not case sensetive.
+Now show it'
+
 2. In the original dataset, use filter to find information about the song "All the small things." What was the highest position (i.e. lowest number) this song reached on the billboard 100? 
+```{r}
+min(billboard[billboard$track=="All The Small Things", 4:79], na.rm = TRUE)
+```
+Describing the code left to right: 'get the minimum value from the billboard data set for the row with the track as "All The Small Things" only looking at the columns that represent a ranking in a given week. Whatever is not available, remove.
+
 3. Create a subset of data for songs Tim McGraw sang. Summarize the data for wk 1.
-4. Create a function that can be used to determine if Britney Spears sang the song. 
-5. Test your function on the billboard data. Save the results to a new column called "wasItBritney"
+```{r}
+timMcGrawDat <- subset(billboard, artist=="McGraw, Tim")
+```
+Describing the code left to right: Make a subset of data and call it TIMMCGRAWDAT , including any row with the artist as 'Mcgraw, Tim' from the Billboard data. He had three songs in the rankings that ranked 85, 73, 76, respectively.
+
+4 and 5. Create a function that can be used to determine if Britney Spears sang the song. Test your function on the billboard data. Save the results to a new column called "wasItBritney"
+```{r}
+britneySong <- function(artist) {
+  artist=="Spears, Britney"
+}
+
+billboard$WASITBRITNEY <- britneySong(billboard$artist)
+```
+Describing the code left to right: call it BRITNEY SONG, and make it a function that looks at the artist value and makes sure that it is "Spears, Britney"
+Now make a column in the billboard data call WASITBRITNEY. and run the function. on the artist column.
+
 6. Use a for loop to determine if a song placed 50 or below or placed above 50 during the first week. 
+```{r}
+billboard$weekOneLoop <- NA
+
+for(i in 1:nrow(billboard)) {
+  if(billboard$wk1[i]<50) {
+    billboard$weekOneLoop[i] <- "Better than 50"
+  } else {
+    billboard$weekOneLoop[i] <- "50 or worse"
+  }
+}
+```
+Make a value in billboard called WEEKONELOOP and just give it like a placeholder value of NA. I'll fill it in in a second. Now, for the value of the first row if it is smaller than 50, then categorize it as better than 50; otherwise, categorize it as 50 or worse
+
 7. Use an if else statement to determine the same information as you obtained with the for loop. 
+```{r}
+billboard$weekOneIfElse <- ifelse(
+  billboard[[4]]<50,
+  "Better than 50",
+  "50 or worse"
+)
+```
+Make an if else statement called week one FLs under the billboard data. If the number in column four is less than 50 then put better then 50. Otherwise put 50 or worse.
+
 8. Compare your results in 6 and 7. 
+They are exactly the same!
