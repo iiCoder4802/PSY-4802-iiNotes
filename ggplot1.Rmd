@@ -1,0 +1,163 @@
+---
+title: "ggplot1"
+author: "iBrahim Ismail"
+date: "2026-10-30"
+output: html_document
+---
+1. open the starwars dataset in tidyverse.
+```{r}
+library(tidyverse)
+```
+```{r}
+starwars
+```
+
+
+2. create a graph showing the frequency of eye colors in the dataset. 
+```{r}
+ggplot(starwars, aes(x = eye_color)) +
+  geom_bar() +
+  labs(x = "Eye Color", y = "Frequencies")
+```
+Left to right code explanation (L2RCE): Use GG plot for the star Wars data with the variable of focus being eye color. Make it a bar graph and have the X axis called eye color and the Y axis called frequencies
+
+3. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc. 
+```{r}
+library(tidyverse)
+
+starwars <- starwars |>
+  mutate(eye_color = dplyr::recode(
+    eye_color,
+    `green, yellow` = "other",
+    `red, blue` = "other",
+    unknown = "other",
+    `blue-gray` = "blue"
+  ))
+
+ggplot(starwars, aes(x = eye_color, fill = eye_color)) +
+  geom_bar(color = "black") +
+  scale_fill_manual(values = c(
+    black = "black",
+    blue = "blue",
+    brown = "brown",
+    dark = "gray20",
+    green = "green",
+    hazel = "tan4",
+    orange = "orange",
+    other = "gray70",
+    pink = "pink",
+    red = "red",
+    white = "white",
+    yellow = "yellow"
+  )) +
+  labs(x = "Eye Color", y = "Frequencies") +
+  theme(legend.position = "none")
+
+ggplot(starwars, aes(x = eye_color, fill = eye_color)) +
+  geom_bar(color = "black") +
+  scale_fill_manual(values = c(
+    black = "black",
+    blue = "blue",
+    `blue-gray` = "steelblue",
+    brown = "brown",
+    dark = "gray20",
+    gold = "gold",
+    `green, yellow` = "greenyellow",
+    hazel = "tan4",
+    orange = "orange",
+    pink = "pink",
+    red = "red",
+    `red, blue` = "purple",
+    unknown = "gray70",
+    white = "white",
+    yellow = "yellow"
+  )) +
+  labs(x = "Eye Color", y = "Frequencies") +
+  theme(legend.position = "none")
+```
+L2RCE: In the Star Wars data set, we're gonna make a change to data set in the eye color column. I want you to deploy the following re-codes: put anything that says green, yellow or red, blue, or unknown, into other and any character that has blue – gray, just change it to blue. Then I want you to use GG plot for the Star Wars dataset with the eye color variable and I want you to change the fill. and make a bar graph btw. For each bar Set them all black by default. Now set the black bar to black, the blue bar to blue, etc. On the x-axis, have eye color and on the Y axis have frequencies written. No need to have a legend. Then, basically doing the same thing over, except including some of the missed colors. Also, some of the code in the third “paragraph” is redundant because I deleted some of the colors. when I mutated the actual data permanently for organizational purposes and visual cleanness.
+4. Create a graph displaying information about character's height in each homeworld. 
+```{r}
+ggplot(starwars, aes(x = height, y = homeworld)) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.5) +
+  labs(x = "Height (cm)", y = "Homeworld")
+```
+L2RCE: use GGPLOT to make a graph in the Star Wars data set where on the X axis we're looking at height and the Y we are looking at the Homeworld they are from. Make this a box plot and have it jitter with 0.5 transparency and label the X axis with height in centimeters and the Y axis with Homeworld
+5. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(starwars, aes(x = height, y = homeworld)) +
+  geom_boxplot(fill = "green") +
+  geom_jitter(alpha = 0.5) +
+  labs(x = "Height (cm)", y = "Homeworld")
+```
+L2RCE: use GGPLOT to make a graph in the Star Wars data set where on the X axis we're looking at height and the Y we are looking at the Homeworld they are from. Make this a box plot with green filled boxes and have it jitter with 0.5 transparency and label the X axis with height in centimeters and the Y axis with Homeworld'
+```{r}
+library(tidyverse)
+
+ggplot(
+  subset(starwars, homeworld %in% c(
+    "Alderaan",
+    "Corellia",
+    "Coruscant",
+    "Kamino",
+    "Kashyyyk",
+    "Naboo",
+    "Tatooine"
+  )),
+  aes(x = height, y = homeworld)
+) +
+  geom_boxplot(fill = "green") +
+  geom_jitter(alpha = 0.5) +
+  labs(x = "Height (cm)", y = "Homeworld")
+```
+L2RCE: use GGPLOT to make a graph with a subset of the Star Wars data set where only entries with the Homeworld value set as [one of the popular seven]. on the X axis we're looking at height and the Y we are looking at the Homeworld they are from. Make this a box plot with green filled boxes and have it jitter with 0.5 transparency and label the X axis with height in centimeters and the Y axis with Homeworld.' I figured this is a much better way to do it it because if you want to see the height of the one character and all the other worlds, you can just go ahead and check that. But if you wanna see A general idea of what's going on in each home world of Height data, that's what you make a box plot for, so I only included the ones that show those trends (aka multiple points)
+
+6. Create a graph of character's height by mass. 
+```{r}
+ggplot(starwars, aes(x = mass, y = height)) +
+  geom_point() +
+  labs(x = "Mass (kg)", y = "Height (cm)")
+```
+LOL I knew Jabba the hut was gonna mess with the data set. L2RCE: use GG plot to make a graph in the Star Wars dataset on the X axis have mass and on the Y axis have height, and make this a scatter plot and write mass in kilograms on the X axis and height in centimeters on the Y axis.
+
+7.Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(subset(starwars, mass<=250), aes(x = mass, y = height)) +
+  geom_point() +
+  scale_y_continuous(breaks = seq(0, 250, 10)) +
+  labs(x = "Mass (kg)", y = "Height (cm)")
+```
+Use GG Plot for a subset of the Star Wars database where the mass value is less than 250, with mass on the X axis and have height on the y-axis and make this a scatter plot. and on the Y axis, start from zero and go to 250 and have the numbers go up by tens, the graph can start at the lowest number and end at the highest number, though, no need to go all the way.
+
+8. Add gender as a third variable to your graph of height by mass. 
+```{r}
+ggplot(subset(starwars, mass<=250), aes(x = mass, y = height, color = gender)) +
+  geom_point() +
+  scale_color_manual(
+    values = c(masculine = "blue", feminine = "red"),
+    na.value = "green",
+    name = "Gender"
+  ) + 
+  scale_y_continuous(breaks = seq(0, 250, 10)) +
+  labs(x = "Mass (kg)", y = "Height (cm)")
+```
+In addition to the instructions for number seven, have color represent gender with values masculine being blue and feminine being red and everything else just green. call it gender in the legend.
+
+9. Customize your graph to make it more presentable. Consider color, backgrounds, axes, etc.
+```{r}
+ggplot(subset(starwars, mass<=250), aes(x = mass, y = height, color = gender)) +
+  geom_point() +
+  scale_color_manual(
+    values = c(masculine = "#0072B2", feminine = "#D55E00"),
+    na.value = "#009E73",
+    name = "Gender"
+  ) +
+  scale_y_continuous(breaks = seq(0, 250, 10)) +
+  labs(x = "Mass (kg)", y = "Height (cm)")  + theme(
+  legend.box.background = element_rect(color = "black", fill = NA)
+)
+```
+Same instructions as problem eight, except just more presentable, colorblind compatible colors. And added a part at the end that puts a box around the legend that's the color black with no fill
+
+Note: the code that I used may not exactly match what I had in the AI chat because sometimes it add stuff that I don't want and I slightly modify it before adding it here. 
