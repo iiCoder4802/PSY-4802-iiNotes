@@ -96,16 +96,16 @@ L2RE: same as 5 except I just added the color palette to my answer (didnt have c
 7.Using any variables in the starwars dataset, create a graph that uses a color palette from RColorBrewer.
 ```{r}
 ggplot(starwars, aes(x = mass, y = height)) +
-  geom_point(aes(color = "Characters")) +
+  geom_point(aes(color = gender)) +
   scale_color_brewer(palette = "Set2", guide = "none")
 ```
-L2RE: use GG plot and the Star Wars data to make a graph with mass on the X axis and height on the Y axis, and have the colors attach to each type character (each character has its own row, with no repeats anyways) and use the scale color brewer palette set to colors. No need to say what green means with a guide.
+L2RE: use GG plot and the Star Wars data to make a graph with mass on the X axis and height on the Y axis, and have the colors be assigned randomly to different genders. I know that there's more than eight eye colors and only eight colors in set two, so not all the data is shown. If it was a requirement for this question, I would add a legend saying that orange is masculine and green is feminine.
 
 8. Using any variables in the starwars dataset, create a graph using facet_wrap
 ```{r}
 ggplot(starwars, aes(x = mass, y = height)) +
-  geom_point(aes(color = "Characters")) +
+  geom_point(aes(color = gender)) +
   scale_color_brewer(palette = "Set2", guide = "none") +
   facet_wrap(~ eye_color)
 ```
-Same except a different graph for each eye color. Recall that I actually edited the Star Wars data set on my computer so that there is no multicolor sections/graphs. They are now under other.
+Same except a different graph for each eye color. Recall that I actually edited the Star Wars data set on my computer so that there is no multicolor sections/graphs. They are now under 'other.'
