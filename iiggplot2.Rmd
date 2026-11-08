@@ -1,0 +1,111 @@
+---
+title: "iiggplot2"
+author: "iBrahim Ismail"
+date: "2026-11-08"
+output: html_document
+---
+
+1. Open the starwars dataset (located in tidyverse)
+```{r}
+library(tidyverse)
+starwars
+```
+
+
+2. Create a scatter plot of character's height and mass. 
+```{r}
+library(tidyverse)
+
+ggplot(starwars, aes(x = mass, y = height)) +
+  geom_point(na.rm = TRUE) +
+  labs(x = "Mass (kg)", y = "Height (cm)")
+```
+Left to right explanation of code (L2RE): use GG plot and the Star Wars Data to make a graph with mass on the X axis and height on the Y-axis, by the way, I want this to be a scatter plot and I want all of the not available data to be taken out before you make the scatter plot, and I want you to label the X axis with mass and kilograms and Y axis with height and centimeters
+
+2a. Change the color and shape of the points in your scatter plot. 
+```{r}
+ggplot(starwars, aes(x = mass, y = height)) +
+  geom_point(color = "brown", shape = 17, na.rm = TRUE) +
+  labs(x = "Mass (kg)", y = "Height (cm)")
+```
+L2RE: same as above, except color of points: brown and the shape triangular, which is shape 17.
+
+3. Add Homeworld as a third variable to your scatterplot. 
+```{r}
+ggplot(starwars, aes(x = mass, y = height, color = homeworld)) +
+  geom_point(shape = 17, na.rm = TRUE) +
+  scale_color_manual(
+    name = "Homeworld",
+    values = c(
+      Tatooine = "gold",
+  Dandoran = "blue",
+  Naboo = "brown",
+  Kashyyyk = "green4",
+  Kamino = "red",
+  Coruscant = "purple"),
+    na.value = "black"
+  ) +
+  labs(x = "Mass (kg)", y = "Height (cm)")
+```
+L2RE: use Gg plot and the Star Wars data to make a graph that uses mass on the X axis and Y axis put height and have the color of the dots as the Homeworld. That's like a third variable, and have the points be triangular and remove all of the not available data before making the scatter plot. for the colors of the dots have the characters with the Homeworld _ have the color _, etc. All others should just have the color black. Label the axes with mass and kilograms on the X axis and height and centimeters on the Y axis
+
+3a. What do you notice about the graph? (e.g. describe what you see)
+That we did something similar to this in the last assignment. Also, people from Kashyyyk are pretty tall and relatively light. Also, I think we would be able to see the data much better if I was able to remove that 1000+ kg character
+
+4. Make a boxplot of height. 
+```{r}
+ggplot(starwars, aes(y = height)) +
+  geom_boxplot(na.rm = TRUE) +
+  labs(y = "Height (cm)")
+```
+L2RE: use GG Plot and the Star Wars data to make a graph where the Y axis has height. This is gonna be a blocks plot and remove all the not available data points before making it. Label the Y axis with height in centimeters. wait that looks so goofy theres nothing its graphed against haha.
+
+5. Make a boxplot of height for each species present in the data. 
+```{r}
+ggplot(starwars, aes(x = species, y = height)) +
+  geom_boxplot() +
+  labs(x = "Species", y = "Height (cm)")
+```
+5a. change the appearance of your graph in at least 3 ways. 
+```{r}
+ggplot(starwars, aes(x = species, y = height)) +
+  geom_boxplot(alpha = 0.6) +
+  labs(
+    title = "Star Wars characters height by species",
+    x = "Species",
+    y = "Height (cm)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+Title, box transparency(with alpha), and tilting species names are my three changes
+
+6. Using any variables in the starwars dataset, create a graph that uses a color palette from viridis.
+```{r}
+ggplot(starwars, aes(x = species, y = mass, fill = species)) +
+  geom_boxplot(alpha = 0.6) +
+  scale_fill_viridis_d(option = "turbo", guide = "none") +
+  labs(
+    title = "Star Wars character mass by species",
+    x = "Species",
+    y = "Mass (kg)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+L2RE: same as 5 except I just added the color palette to my answer (didnt have chatgpt write it) from the last problem... and changed the Y axis to mass because I wanted to see if Jabba the Hutt was ruining my scatter plot from problem 3 with his unique mass (yes i was right it was him). 
+
+7.Using any variables in the starwars dataset, create a graph that uses a color palette from RColorBrewer.
+```{r}
+ggplot(starwars, aes(x = mass, y = height)) +
+  geom_point(aes(color = "Characters")) +
+  scale_color_brewer(palette = "Set2", guide = "none")
+```
+L2RE: use GG plot and the Star Wars data to make a graph with mass on the X axis and height on the Y axis, and have the colors attach to each type character (each character has its own row, with no repeats anyways) and use the scale color brewer palette set to colors. No need to say what green means with a guide.
+
+8. Using any variables in the starwars dataset, create a graph using facet_wrap
+```{r}
+ggplot(starwars, aes(x = mass, y = height)) +
+  geom_point(aes(color = "Characters")) +
+  scale_color_brewer(palette = "Set2", guide = "none") +
+  facet_wrap(~ eye_color)
+```
+Same except a different graph for each eye color. Recall that I actually edited the Star Wars data set on my computer so that there is no multicolor sections/graphs. They are now under other.
