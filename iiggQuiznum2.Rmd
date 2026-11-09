@@ -1,0 +1,72 @@
+---
+title: "iiggQuiznum2"
+author: "iBrahim Ismail"
+date: "2026-11-08"
+output: html_document
+---
+This quiz will focus on data frame manipulation, however, you may need to rely on skills you've learned in prior weeks. 
+
+1. load the starwars dataset from tidyverse
+```{r}
+library(tidyverse)
+data(starwars)
+```
+
+2. separate the films column so that there is one film in each column (don't worry about the "c(" and ) at the end for now)
+```{r}
+library(tidyverse)
+separate(starwars, films, into = paste0("film", 1:9), sep = ", ")
+
+```
+Left to right explanation of code: separate the Star Wars films column into nine columns that all have the word film, and then a number one through nine and fill in each column for each row with a movie that row name is in until it runs out of movies to fill in.
+
+3. alter the data from wide data to long data
+```{r}
+starWarsFilmsLong <- starwars |>
+  separate(films, into = paste0("film", 1:9), sep = ", ", fill = "right") |>
+  pivot_longer(
+    cols = film1:film9,
+    names_to = "filmNumber",
+    values_to = "film",
+    values_drop_na = TRUE
+  )
+starWarsFilmsLong
+```
+L2RE: make a new data frame called Star Wars films long from the Star Wars data frame. In that data frame, I want you to separate the films column into columns film one through film nine. and fill the columns rightward. Then pivot into long form. data using the columns film one through film nine, and put the names of the columns into film number and the values in film name. Drop the not available values. Now show me this data.
+
+4. in the column where you stored the films, rename the levels so each film name is consistent (e.g. get rid of the "c(" and ")" )
+```{r}
+starWarsFilmsLong <- starWarsFilmsLong |>
+  mutate(film = gsub('^c\\("|^"|"\\)?$', "", film))
+starWarsFilmsLong
+```
+For the Star Wars films long data, use the Star Wars films long data to mutate it(self) and put the result in the film column. get rid of these symbols inside the quotations and replace it with nothing and make sure this all happens in the film column. now lemme see it.
+
+5. Create a column in your dataset that indicates whether a character was in the first starwars film, *Star Wars Episode IV: A New Hope* 
+```{r}
+starWarsFilmsLong <- starWarsFilmsLong |>
+  group_by(name) |>
+  mutate(`Was in Episode IV?` = ifelse(any(film=="A New Hope"), "yes", "no")) |>
+  ungroup()
+starWarsFilmsLong
+```
+L2RE: In the Star Wars films long data frame, using the Star Wars films long data frame, mutate the data by adding a column called was in episode four? And in that column, put the following condition: if in any of their film rows contains a new hope, then put the value yes. otherwise put no. 
+Note: It did the group by name and then ungroup at the end just to tell the code to treat, for example, all the Luke Skywalker rows as one entity, so it doesn't put a non-A-New-Hope-row as no even tho he is indeed in the film it's just not listed in that row. 
+
+6. BMI is calculated as mass in Kg/height in meters squared. You currently have mass in Kg and height in cm. Create a column that contains each character's BMI. 
+```{r}
+starWarsFilmsLong <- starWarsFilmsLong |>
+  mutate(
+    heightMetersSquared = (height/100)^2,
+    BMI = mass/heightMetersSquared
+  )
+starWarsFilmsLong
+```
+L2RE: In the Star Wars films long data frame, using the Star Wars films long data frame, mutate the data by adding a column called height meters squared and put in it the values inside of the height column divided by 100 to the power of two. Then, make another column called BMI and have that be the values under the mass column divided by the values under the respective height meter squared column.
+
+7. create a dataframe that contains only the name, hair color, and eye color for each character. 
+```{r}
+starWarsNameHairEye <- starwars[, c("name", "hair_color", "eye_color")]
+starWarsNameHairEye
+```
+L2RE: Make a new data frame called Star Wars name hair eye. Inside it, taking from the Star Wars data frame, add the name, hair color, and eye color columns. 
