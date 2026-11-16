@@ -1,0 +1,133 @@
+---
+title: "best&worst1"
+author: "iBrahim Ismail"
+date: "2026-11-01"
+output: html_document
+---
+```{r}
+library(tidyverse)
+
+# Syntax: object_name <- read_csv("darkTriad_Data-1.csv")
+my_data <- read_csv("darkTriad_Data-1.csv")
+
+```
+
+```{r}
+# View the top few rows of your new data frame
+head(my_data)
+
+```
+```{r}
+library(tidyverse)
+
+ggplot(starwars, aes(x=height, y=eye_color, color=mass)) +
+  geom_line(aes(group=1), linewidth=3, na.rm=TRUE) +
+  geom_point(size=9, shape=8, na.rm=TRUE) +
+  scale_color_gradient(
+    low="#FFFF00",
+    high="#FFAA00",
+    na.value="#FFFF55",
+    name="GOOD LUCK"
+  ) +
+  labs(
+    title="STAR WARS DATA!!!!!!!! WHY IS ANY OF THIS CONNECTED",
+    x="Height (cm)",
+    y="Eye color"
+  ) +
+  theme(
+    plot.background=element_rect(fill="#FFFF00", color="#FFAA00"),
+    panel.background=element_rect(fill="#FFD800"),
+    panel.grid.major=element_line(color="#FFAA00", linewidth=2),
+    panel.grid.minor=element_line(color="#FFFF00", linewidth=1),
+    text=element_text(color="#FFBB00"),
+    plot.title=element_text(size=28, angle=7),
+    axis.text.x=element_text(color="#FFCC00", angle=83, size=5),
+    axis.text.y=element_text(color="#FFCC00", angle=47, size=6),
+    axis.title=element_text(color="#FFBB00", size=30),
+    legend.background=element_rect(fill="#FFFF00"),
+    legend.key=element_rect(fill="#FFD800"),
+    legend.text=element_text(color="#FFCC00", size=5),
+    legend.position="bottom"
+  )
+
+# confidence: 100/100
+```
+```{r}
+library(tidyverse)
+
+darkTriadDat <- read_csv("darkTriad_Data-1.csv")
+
+# Assigned the plot to an object (darkTriadDat instead of darkTriadPat)
+worstGraph <- ggplot(darkTriadDat, aes(x = country, y = Narcissism)) +
+  geom_line(aes(group = 1), color = "gray55") +
+  geom_point(color = "gray45") +
+  theme_dark() + 
+  labs(
+    title = "Informative Line Graph",
+    x = "country",
+    y = "Narcissism"
+  )
+
+# Export as PNG for Mac compatibility
+ggsave(
+  filename = "iiworstNarcissismGraph.png",
+  plot = worstGraph,
+  width = 10,
+  height = 8,
+  units = "in",
+  dpi = 300
+)
+
+```
+
+```{r}
+library(tidyverse)
+
+darkTriadDat <- read_csv("darkTriad_Data-1.csv")
+
+scoreType <- factor(
+  c("Narcissism", "Machiavellianism", "Psychopathy"),
+  levels=c("Narcissism", "Machiavellianism", "Psychopathy")
+)
+
+averageScore <- c(
+  mean(darkTriadDat$Narcissism, na.rm=TRUE),
+  mean(darkTriadDat$Machiavellianism, na.rm=TRUE),
+  mean(darkTriadDat$Psychopathy, na.rm=TRUE)
+)
+
+averageDat <- cbind.data.frame(scoreType, averageScore)
+
+ggplot(averageDat, aes(x=scoreType, y=averageScore, fill=scoreType)) +
+  geom_bar(stat="identity") +
+  scale_fill_manual(values=c("blue", "red", "forestgreen")) +
+scale_y_continuous(limits=c(0, 5), breaks=seq(0, 5, by=0.2)) +
+  labs(x="Score Type", y="Average Score") +
+  theme(legend.position="none")
+```
+```{r}
+library(tidyverse)
+
+darkTriadDat <- read_csv("darkTriad_Data-1.csv")
+
+# Create a clean scatter plot with a linear trendline
+bestNarcissismGraph <- ggplot(darkTriadDat, aes(x = Machiavellianism, y = Narcissism)) +
+  geom_jitter(alpha = 0.15, color = "blue") +
+  geom_smooth(method = "lm", color = "red", linetype = "dashed") +
+  theme_classic() +
+  labs(
+    title = "Machiavellianism vs Narcissism Correlation",
+    x = "Machiavellianism Score",
+    y = "Narcissism Score"
+  )
+
+# Export high-resolution PNG for Canvas
+ggsave(
+  filename = "bestNarcissismGraph.png",
+  plot = bestNarcissismGraph,
+  width = 10,
+  height = 8,
+  units = "in",
+  dpi = 300
+)
+```
