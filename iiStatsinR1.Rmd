@@ -1,0 +1,83 @@
+---
+title: "iiStatsInR1"
+author: "iBrahim Ismail"
+date: "2026-11-21"
+output: html_document
+---
+1. Open the diamonds dataset from ggplot2.  
+```{r}
+library(tidyverse)
+diamond
+```
+
+2. Run a correlation between the x and y variables. What do you notice?
+```{r}
+cor.test(diamonds$x, diamonds$y)
+```
+There is a strong correlation and a tiny P-value indicating strength and reliability
+No, L2RE. Used my notes.
+
+3. What is the correlation between price and carat?
+```{r}
+cor.test(diamonds$price, diamonds$carat)
+```
+No L2RE. Used Notes.
+
+4. Create a linear model predicting price from table. What is the coefficient for table? 
+```{r}
+priceModel <- lm(price ~ table, data = diamonds)
+summary(priceModel)
+```
+Left to right explanation of code (L2RE): naming it price model, make a model that predicts price from table, in the diamonds data set
+summarize the result
+answer to Q4: coefficient for table is about 226.984
+
+5. Run a regression and an Anova predicting price from color. What do you notice about the two types of output? 
+```{r}
+colorModel <- lm(price ~ color, data = diamonds)
+summary(colorModel)
+
+anova(colorModel)
+```
+Anova gives a lot less information, basically only saying yes or no statistically significant relationship, while the regression tells you yes or no, and by how much.
+L2RE: naming a color model, make a model where you predict price from color in the diamonds data. 
+Now summarize its result.
+
+6. Run a t test to determine if "D" color diamonds are more expensive than "E" color diamonds. 
+```{r}
+t.test(price ~ color, data = diamonds, subset = color %in% c("D", "E"))
+```
+D color diamonds are more expensive than E colored ones, but not reliably. 
+L2RE: do a t test comparing the price in colors of the data set diamonds. Only compare the ones that in their color column have the value D or E.
+
+7. Open the warpbreaks dataset. What test would you use to determine the correlation between wool type and breaks?
+```{r}
+data(warpbreaks)
+```
+a regression.
+
+8. What is the correlation between wool type and breaks? 
+```{r}
+woolyBreaksModel <- lm(breaks ~ wool, data = warpbreaks)
+summary(woolyBreaksModel)
+```
+There isn't a statistically significant correlation between wool type and breaks because the p-value is more than 0.05
+
+9a. A student has a 35 question, multiple choice test. Each question has 4 choices. If they answered 17 questions 
+correctly, did their responses differ from chance?
+```{r}
+17/35
+```
+The student scored 48.6% on the exam while chance would've theoretically scored 25.0%
+```{r}
+48.6-25
+```
+This means that there was a 23.6% score difference between him and chance. Ofc this is a coding class tho so...
+
+9b.
+```{r}
+binom.test(17, 35, p = 0.25, alternative = "greater")
+```
+L2RE: do a binomial test where there was 17 successes and 35 total runs. The probability of thing being just based on chance was 25%. and the alternative hypothesis was that the true probability of success is greater than 25%. 
+
+Result: p-value = 0.002185 so even with the student's awful score, the probability of them succeeding (48.57%) is still statistically significantly greater than chance (25.00%)
